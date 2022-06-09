@@ -1,0 +1,5 @@
+name=Coracle
+author=Orllewin
+description=Coracle for Playdate
+bundleID=orllewin.coracle.playdate
+imagePath=system/
