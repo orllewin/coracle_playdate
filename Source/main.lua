@@ -1,8 +1,7 @@
 import 'Coracle'
-import 'drawings/SourhallDrawing'
+import 'drawings/WindTurbineDrawing'
 
 function init()
-	print("Coracle drawing starting")
 	setup()
 end
 
