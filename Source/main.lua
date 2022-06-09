@@ -1,5 +1,5 @@
 import 'Coracle'
-import 'drawings/SelfOrganisingDrawing'
+import 'drawings/SourhallDrawing'
 
 function init()
 	print("Coracle drawing starting")
