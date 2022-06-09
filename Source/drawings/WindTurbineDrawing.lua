@@ -12,9 +12,9 @@ turbineTable = playdate.graphics.imagetable.new("images/turbines")
 local turbineImages = {}
 for i = 1, 12 do
   if(i < 10)then
-    turbineImages[i] = gfx.image.new('images/turbines_sprite_playdate_00'..i)
+    turbineImages[i] = gfx.image.new('images/small_turbines/turbines_sprite_playdate_00'..i)
   else
-    turbineImages[i] = gfx.image.new('images/turbines_sprite_playdate_0'..i)
+    turbineImages[i] = gfx.image.new('images/small_turbines/turbines_sprite_playdate_0'..i)
   end
 end
 
@@ -30,7 +30,7 @@ function setup()
   local turbine = gfx.image.new("images/turbine_sprite_64x64.png")
   assert(turbine)
   turbineA:setImage(turbine)
-  turbineA:moveTo(100, 75)
+  turbineA:moveTo(100, 85)
   turbineA:add()
   
   gfx.sprite.setBackgroundDrawingCallback(
@@ -47,6 +47,7 @@ turbineAIndex = 1
 function draw()
   frame = frame + 1
   
+
   if(frame % 4 == 0)then
     turbineAIndex = turbineAIndex + 1
     local turbineFrame = turbineImages[turbineAIndex]
@@ -58,4 +59,7 @@ function draw()
   end
 
   gfx.sprite.update()
+  
+  playdate.graphics.setColor(playdate.graphics.kColorWhite)
+  playdate.graphics.fillRect(100, 83, 2, 20)
 end
