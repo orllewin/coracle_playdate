@@ -36,6 +36,9 @@ function setup()
   gfx.sprite.setBackgroundDrawingCallback(
       function( x, y, width, height )
           sourhall:draw( 0, 0 )
+          
+          playdate.graphics.setColor(playdate.graphics.kColorWhite)
+          playdate.graphics.fillRect(100, 83, 2, 20)
       end
   )
 
@@ -60,6 +63,5 @@ function draw()
 
   gfx.sprite.update()
   
-  playdate.graphics.setColor(playdate.graphics.kColorWhite)
-  playdate.graphics.fillRect(100, 83, 2, 20)
+
 end
