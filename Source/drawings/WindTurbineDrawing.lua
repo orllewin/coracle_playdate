@@ -81,7 +81,7 @@ function setup()
   synth:setVolume(0.04)
   
   -- Rain
-  for i = 1, 1400 do
+  for i = 1, 1000 do
     local raindrop = Raindrop()
     raindrop.location = Vector:create(math.random(0, width * 1.25), math.random(-400, 0))
     raindrop.speed = math.random(2, 6)
@@ -138,9 +138,16 @@ function draw()
     raindrop.location.y = raindrop.location.y + raindrop.speed
     raindrop.location.x = raindrop.location.x - (raindrop.speed * windspeed)
     if(raindrop.location.y > height + 1) then
-      raindrop.location = Vector:create(math.random(0, (width * 3)), math.random(-100, 0))
+      raindrop.location = Vector:create(math.random(0, (width * 1.25)), math.random(-100, 0))
     end
   end
   
+  if(upPressed())then
+    synth:stop()
+  end
+  
+  if(downPressed())then 
+    synth:playNote(220)
+  end
 
 end
