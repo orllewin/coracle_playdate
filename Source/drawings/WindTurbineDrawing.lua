@@ -7,7 +7,8 @@ import 'CoreLibs/sprites.lua'
 import 'CoreLibs/graphics.lua'
 import 'Vector'
 
-local gfx <const> = playdate.graphics
+local sound <const> = playdate.sound
+local graphics <const> = playdate.graphics
 local turbineTable = playdate.graphics.imagetable.new("images/turbines")
 
 local frame = 0
@@ -19,9 +20,9 @@ local turbineDIndex = 11
 local turbineImages = {}
 for i = 1, 12 do
   if(i < 10)then
-    turbineImages[i] = gfx.image.new('images/small_turbines/turbines_sprite_playdate_00'..i)
+    turbineImages[i] = graphics.image.new('images/small_turbines/turbines_sprite_playdate_00'..i)
   else
-    turbineImages[i] = gfx.image.new('images/small_turbines/turbines_sprite_playdate_0'..i)
+    turbineImages[i] = graphics.image.new('images/small_turbines/turbines_sprite_playdate_0'..i)
   end
 end
 
@@ -38,17 +39,17 @@ local synthFilterFrequency = 300
 
 function setup()
   -- Background
-  sourhall = gfx.image.new("images/sourhall_400x240.png")
+  sourhall = graphics.image.new("images/sourhall_400x240.png")
   assert(sourhall)
   
-  gfx.sprite.setBackgroundDrawingCallback(
+  graphics.sprite.setBackgroundDrawingCallback(
       function( x, y, width, height )
           sourhall:draw(0, 0)
       end
   )
   
   -- Turbines
-  local turbine = gfx.image.new("images/turbine_sprite_64x64.png")
+  local turbine = graphics.image.new("images/turbine_sprite_64x64.png")
   assert(turbine)
   
   turbineA = TurbineSprite()
@@ -72,11 +73,11 @@ function setup()
   turbineD:add()
   
   -- Audio
-  synth = playdate.sound.synth.new(playdate.sound.kWaveNoise)
-  filter = playdate.sound.twopolefilter.new("lowpass") -- XXX - snd.kFilterLowPass should work
+  synth = sound.synth.new(playdate.sound.kWaveNoise)
+  filter = sound.twopolefilter.new("lowpass") -- XXX - snd.kFilterLowPass should work
   filter:setResonance(synthFilterResonance)
   filter:setFrequency(synthFilterFrequency)
-  playdate.sound.addEffect(filter)
+  sound.addEffect(filter)
   synth:playNote(220)
   synth:setVolume(0.04)
   
@@ -129,7 +130,7 @@ function draw()
     end
   end
 
-  gfx.sprite.update()
+  graphics.sprite.update()
   
   playdate.graphics.setColor(playdate.graphics.kColorXOR)
   for i = 1, #raindrops do
