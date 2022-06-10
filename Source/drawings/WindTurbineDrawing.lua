@@ -92,11 +92,11 @@ function setup()
 end
 
 function draw()
-  frame = frame + 1
+  frame += 1
   
   -- Turbine A
   if(frame % 3 == 0)then
-    turbineAIndex = turbineAIndex + 1
+    turbineAIndex += 1
     turbineA:setImage(turbineImages[turbineAIndex])
     
     if(turbineAIndex == 12)then
@@ -104,7 +104,7 @@ function draw()
     end
     
     -- Turbine B
-    turbineBIndex = turbineBIndex + 1
+    turbineBIndex += 1
     turbineB:setImage(turbineImages[turbineBIndex])
     turbineB:setScale(0.8)
     
@@ -113,7 +113,7 @@ function draw()
     end
     
     -- Turbine C
-    turbineCIndex = turbineCIndex + 1
+    turbineCIndex += 1
     turbineC:setImage(turbineImages[turbineCIndex])
     turbineC:setScale(0.9)
     
@@ -122,7 +122,7 @@ function draw()
     end
     
     -- Turbine D
-    turbineDIndex = turbineDIndex + 1
+    turbineDIndex += 1
     turbineD:setImage(turbineImages[turbineDIndex])
     
     if(turbineDIndex == 12)then
