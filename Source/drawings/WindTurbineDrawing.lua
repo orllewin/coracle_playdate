@@ -5,9 +5,16 @@
 
 import 'CoreLibs/sprites.lua'
 import 'CoreLibs/graphics.lua'
+import 'Vector'
 
 local gfx <const> = playdate.graphics
-turbineTable = playdate.graphics.imagetable.new("images/turbines")
+local turbineTable = playdate.graphics.imagetable.new("images/turbines")
+
+local frame = 0
+local turbineAIndex = 1
+local turbineBIndex = 3
+local turbineCIndex = 8
+local turbineDIndex = 11
 
 local turbineImages = {}
 for i = 1, 12 do
@@ -19,49 +26,121 @@ for i = 1, 12 do
 end
 
 class('TurbineSprite').extends(playdate.graphics.sprite)
+class('Raindrop').extends()
+
+-- Rain
+local raindrops = {}
+local windspeed = 0.2
+
+-- Audio
+local synthFilterResonance = 0.25
+local synthFilterFrequency = 300
 
 function setup()
+  -- Background
   sourhall = gfx.image.new("images/sourhall_400x240.png")
   assert(sourhall)
   
-  
-  
-  turbineA = TurbineSprite()
-  local turbine = gfx.image.new("images/turbine_sprite_64x64.png")
-  assert(turbine)
-  turbineA:setImage(turbine)
-  turbineA:moveTo(100, 85)
-  turbineA:add()
-  
   gfx.sprite.setBackgroundDrawingCallback(
       function( x, y, width, height )
-          sourhall:draw( 0, 0 )
-          
-          playdate.graphics.setColor(playdate.graphics.kColorWhite)
-          playdate.graphics.fillRect(100, 83, 2, 20)
+          sourhall:draw(0, 0)
       end
   )
+  
+  -- Turbines
+  local turbine = gfx.image.new("images/turbine_sprite_64x64.png")
+  assert(turbine)
+  
+  turbineA = TurbineSprite()
+  turbineA:setImage(turbine)
+  turbineA:moveTo(42, 77)
+  turbineA:add()
+  
+  turbineB = TurbineSprite()
+  turbineB:setImage(turbine)
+  turbineB:moveTo(60, 84)
+  turbineB:add()
+  
+  turbineC = TurbineSprite()
+  turbineC:setImage(turbine)
+  turbineC:moveTo(178, 79)
+  turbineC:add()
+  
+  turbineD = TurbineSprite()
+  turbineD:setImage(turbine)
+  turbineD:moveTo(196, 74)
+  turbineD:add()
+  
+  -- Audio
+  synth = playdate.sound.synth.new(playdate.sound.kWaveNoise)
+  filter = playdate.sound.twopolefilter.new("lowpass") -- XXX - snd.kFilterLowPass should work
+  filter:setResonance(synthFilterResonance)
+  filter:setFrequency(synthFilterFrequency)
+  playdate.sound.addEffect(filter)
+  synth:playNote(220)
+  synth:setVolume(0.04)
+  
+  -- Rain
+  for i = 1, 1400 do
+    local raindrop = Raindrop()
+    raindrop.location = Vector:create(math.random(0, width * 1.25), math.random(-400, 0))
+    raindrop.speed = math.random(2, 6)
+    table.insert(raindrops, raindrop)
+  end
 
 end
-
-frame = 0
-turbineAIndex = 1
 
 function draw()
   frame = frame + 1
   
-
-  if(frame % 4 == 0)then
+  -- Turbine A
+  if(frame % 3 == 0)then
     turbineAIndex = turbineAIndex + 1
-    local turbineFrame = turbineImages[turbineAIndex]
-    turbineA:setImage(turbineFrame)
+    turbineA:setImage(turbineImages[turbineAIndex])
     
     if(turbineAIndex == 12)then
       turbineAIndex = 0
     end
+    
+    -- Turbine B
+    turbineBIndex = turbineBIndex + 1
+    turbineB:setImage(turbineImages[turbineBIndex])
+    turbineB:setScale(0.8)
+    
+    if(turbineBIndex == 12)then
+      turbineBIndex = 0
+    end
+    
+    -- Turbine C
+    turbineCIndex = turbineCIndex + 1
+    turbineC:setImage(turbineImages[turbineCIndex])
+    turbineC:setScale(0.9)
+    
+    if(turbineCIndex == 12)then
+      turbineCIndex = 0
+    end
+    
+    -- Turbine D
+    turbineDIndex = turbineDIndex + 1
+    turbineD:setImage(turbineImages[turbineDIndex])
+    
+    if(turbineDIndex == 12)then
+      turbineDIndex = 0
+    end
   end
 
   gfx.sprite.update()
+  
+  playdate.graphics.setColor(playdate.graphics.kColorXOR)
+  for i = 1, #raindrops do
+    local raindrop = raindrops[i]
+    line(raindrop.location.x + 3 * windspeed, raindrop.location.y - 1, raindrop.location.x, raindrop.location.y)
+    raindrop.location.y = raindrop.location.y + raindrop.speed
+    raindrop.location.x = raindrop.location.x - (raindrop.speed * windspeed)
+    if(raindrop.location.y > height + 1) then
+      raindrop.location = Vector:create(math.random(0, (width * 3)), math.random(-100, 0))
+    end
+  end
   
 
 end
