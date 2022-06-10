@@ -3,29 +3,20 @@
   Experimenting with sprites on Playdate
 ]]
 
-import 'CoreLibs/sprites.lua'
-import 'CoreLibs/graphics.lua'
+import 'CoreLibs/sprites'
+import 'CoreLibs/graphics'
+import 'CoreLibs/animation'
 import 'Vector'
 
 local sound <const> = playdate.sound
 local graphics <const> = playdate.graphics
-local turbineTable = playdate.graphics.imagetable.new("images/turbines")
 
-local frame = 0
-local turbineAIndex = 1
-local turbineBIndex = 3
-local turbineCIndex = 8
-local turbineDIndex = 11
-
-local turbineImages = {}
-for i = 1, 12 do
-  if(i < 10)then
-    turbineImages[i] = graphics.image.new('images/small_turbines/turbines_sprite_playdate_00'..i)
-  else
-    turbineImages[i] = graphics.image.new('images/small_turbines/turbines_sprite_playdate_0'..i)
-  end
-end
-
+local turbineTable = graphics.imagetable.new("images/turbine_sheet")
+local turbineALoop = graphics.animation.loop.new(100, turbineTable)
+local turbineBLoop = graphics.animation.loop.new(100, turbineTable)
+local turbineCLoop = graphics.animation.loop.new(100, turbineTable)
+local turbineDLoop = graphics.animation.loop.new(100, turbineTable)
+ 
 class('TurbineSprite').extends(playdate.graphics.sprite)
 class('Raindrop').extends()
 
@@ -48,29 +39,30 @@ function setup()
       end
   )
   
-  -- Turbines
-  local turbine = graphics.image.new("images/turbine_sprite_64x64.png")
-  assert(turbine)
-  
+  -- Turbines   
   turbineA = TurbineSprite()
-  turbineA:setImage(turbine)
   turbineA:moveTo(42, 77)
+  turbineA:setScale(0.50)
   turbineA:add()
+  turbineALoop.frame = 1
   
   turbineB = TurbineSprite()
-  turbineB:setImage(turbine)
   turbineB:moveTo(60, 84)
+  turbineB:setScale(0.35)
   turbineB:add()
+  turbineBLoop.frame = 4
   
   turbineC = TurbineSprite()
-  turbineC:setImage(turbine)
   turbineC:moveTo(178, 79)
+  turbineC:setScale(0.40)
   turbineC:add()
+  turbineCLoop.frame = 8
   
   turbineD = TurbineSprite()
-  turbineD:setImage(turbine)
   turbineD:moveTo(196, 74)
+  turbineD:setScale(0.50)
   turbineD:add()
+  turbineDLoop.frame = 10
   
   -- Audio
   synth = sound.synth.new(playdate.sound.kWaveNoise)
@@ -92,44 +84,11 @@ function setup()
 end
 
 function draw()
-  frame += 1
+  turbineA:setImage(turbineALoop:image())
+  turbineB:setImage(turbineBLoop:image())
+  turbineC:setImage(turbineCLoop:image())
+  turbineD:setImage(turbineDLoop:image())
   
-  -- Turbine A
-  if(frame % 3 == 0)then
-    turbineAIndex += 1
-    turbineA:setImage(turbineImages[turbineAIndex])
-    
-    if(turbineAIndex == 12)then
-      turbineAIndex = 0
-    end
-    
-    -- Turbine B
-    turbineBIndex += 1
-    turbineB:setImage(turbineImages[turbineBIndex])
-    turbineB:setScale(0.8)
-    
-    if(turbineBIndex == 12)then
-      turbineBIndex = 0
-    end
-    
-    -- Turbine C
-    turbineCIndex += 1
-    turbineC:setImage(turbineImages[turbineCIndex])
-    turbineC:setScale(0.9)
-    
-    if(turbineCIndex == 12)then
-      turbineCIndex = 0
-    end
-    
-    -- Turbine D
-    turbineDIndex += 1
-    turbineD:setImage(turbineImages[turbineDIndex])
-    
-    if(turbineDIndex == 12)then
-      turbineDIndex = 0
-    end
-  end
-
   graphics.sprite.update()
   
   playdate.graphics.setColor(playdate.graphics.kColorXOR)
@@ -150,5 +109,4 @@ function draw()
   if(downPressed())then 
     synth:playNote(220)
   end
-
 end
