@@ -1,4 +1,7 @@
 import 'CoreLibs/graphics'
+import 'CoreLibs/object'
+
+class('Drawing').extends()
 
 local graphics <const> = playdate.graphics
 

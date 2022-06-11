@@ -1,12 +1,14 @@
 import 'coracle/Coracle'
-import 'drawings/WindTurbineDrawing'
+import 'drawings/ShadowParallaxDrawing'
+
+local shadowParallaxDrawing = ShadowParallaxDrawing()
 
 function init()
-	setup()
+	shadowParallaxDrawing:setup()
 end
 
 init()
 
 function playdate.update()	
-	draw()
+	shadowParallaxDrawing:draw()
 end

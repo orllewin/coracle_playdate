@@ -46,12 +46,12 @@ function Parallax:addLayer(img, depth)
  layer.depth = depth
  layer.offset = 0
  layer.width = w
- table.push(self.layers, layer)
+ table.insert(self.layers, layer)
 end
 
 function Parallax:scroll(delta)
  for _, layer in ipairs(self.layers) do
-   layer.offset = math.ring(
+   layer.offset = ring(
      layer.offset + (delta * layer.depth),
      -layer.width, 0
    )
