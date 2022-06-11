@@ -2,8 +2,8 @@
   GravityDrawing
   A port of Coracle Gravity: https://orllewin.github.io/coracle/drawings/vector/gravity/
 ]]
-import 'Vector'
-import 'SECL.lua'
+import 'coracle/Vector'
+import 'coracle/SECL.lua'
 
 local maxSpeed = 2.2
 local bodyCount = 5

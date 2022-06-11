@@ -4,4 +4,4 @@ description=Coracle for Playdate
 bundleID=orllewin.coracle.playdate
 imagePath=system/
 pdxversion=11000
-buildtime=708213242
+buildtime=708286800

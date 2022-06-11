@@ -2,8 +2,8 @@
   SelfOrganisingDrawing
   A port of Self Organising Lattice: https://orllewin.github.io/coracle/drawings/circle_packing/self_organising/
 ]]
-import 'Vector'
-import 'SECL.lua'
+import 'coracle/Vector'
+import 'coracle/SECL.lua'
 
 local maxSpeed <const> = 0.8
 local cellWidth = 40.0

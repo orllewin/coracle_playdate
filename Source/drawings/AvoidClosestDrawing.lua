@@ -2,8 +2,8 @@
   AvoidClosestDrawing
   A port of Coracle Avoid Closest: https://orllewin.github.io/coracle/drawings/experiments/avoid_closest/
 ]]
-import 'Vector'
-import 'SECL.lua'
+import 'coracle/Vector'
+import 'coracle/SECL.lua'
 
 local maxSpeed = 1.5
 local cellWidth = 15.0

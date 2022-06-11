@@ -2,8 +2,8 @@
   PerlinFlowFieldDrawing
   A port of Perlin Noise: https://orllewin.github.io/coracle/drawings/experiments/perlin_noise/
 ]]
-import 'Vector'
-import 'SECL.lua'
+import 'coracle/Vector'
+import 'coracle/SECL.lua'
 
 local bodyCount = 200
 local tailLength = 40

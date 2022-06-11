@@ -6,7 +6,7 @@
 import 'CoreLibs/sprites'
 import 'CoreLibs/graphics'
 import 'CoreLibs/animation'
-import 'Vector'
+import 'coracle/Vector'
 
 local sound <const> = playdate.sound
 local graphics <const> = playdate.graphics

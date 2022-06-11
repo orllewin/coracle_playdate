@@ -1,4 +1,4 @@
-import 'Coracle'
+import 'coracle/Coracle'
 import 'drawings/WindTurbineDrawing'
 
 function init()
