@@ -73,7 +73,7 @@ function setup()
   synth:playNote(220)
   synth:setVolume(0.04)
   
-  -- Rain
+  -- Snow
   for i = 1, 1000 do
     local raindrop = Raindrop()
     raindrop.location = Vector:create(math.random(0, width * 1.25), math.random(-400, 0))

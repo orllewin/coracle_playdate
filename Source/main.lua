@@ -1,14 +1,18 @@
 import 'coracle/Coracle'
-import 'drawings/ShadowParallaxDrawing'
+--import 'drawings/ShadowParallaxDrawing'
+--local shadowParallaxDrawing = ShadowParallaxDrawing()
+import 'games/todmorden/TodmordenGame'
 
-local shadowParallaxDrawing = ShadowParallaxDrawing()
+local game = TodmordenGame()
 
 function init()
-	shadowParallaxDrawing:setup()
+	--shadowParallaxDrawing:setup()
+	game:setup()
 end
 
 init()
 
 function playdate.update()	
-	shadowParallaxDrawing:draw()
+	--shadowParallaxDrawing:draw()
+	game:draw()
 end

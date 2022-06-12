@@ -3,6 +3,8 @@ import 'CoreLibs/object'
 
 class('Drawing').extends()
 
+class('Game').extends()
+
 local graphics <const> = playdate.graphics
 
 DrawingMode = {Stroke = "0", Fill = "1", FillAndStroke = "2"}
