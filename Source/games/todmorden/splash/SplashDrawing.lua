@@ -24,6 +24,7 @@ for i = 1, 1000 do
   local snowflake = Snowflake()
   snowflake.location = Vector:create(math.random(0, width * 1.25), math.random(-400, 0))
   snowflake.speed = math.random(1, 4)
+  snowflake.direction = math.random(-2, 2)
   table.insert(snowflakes, snowflake)
 end
 
@@ -48,9 +49,9 @@ function SplashDrawing:draw()
     --point(snowflake.location.x, snowflake.location.y)
     snowflake.location.y = snowflake.location.y + snowflake.speed
     
-    --noise(snowflake.l, snowflake.y * WIND_CHANGE, frameCount * WIND_CHANGE) -0.5;
-    local wind = playdate.graphics.perlin(snowflake.speed, snowflake.location.y * 0.0025, frame * 0.0025) - 0.5
-    snowflake.location.x = snowflake.location.x + (wind * snowflake.speed)
+    local wind = playdate.graphics.perlin(snowflake.speed, snowflake.location.y * 0.0055, frame * 0.0055) - 0.5
+    --local wind = 0
+    snowflake.location.x = snowflake.location.x + (wind * snowflake.speed) + snowflake.direction
     if(snowflake.location.y > height + 1) then
       snowflake.location = Vector:create(math.random(0, (width * 1.25)), math.random(-100, 0))
       if(snowflake.location.x > 0 and snowflake.location.x < width)then
