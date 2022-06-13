@@ -1,5 +1,6 @@
 import 'coracle/Coracle'
-import 'games/todmorden/splash/SplashDrawing'
+import 'games/todmorden/placeSourhall/SourhallDrawing'
+import 'games/todmorden/placeGorpleyClough/GorpleyCloughDrawing'
 
 class('TodmordenGame').extends(Game)
 
@@ -7,12 +8,10 @@ onSplashDismiss = function()
   print('Splash dismissed')
 end
 
-local splashDrawing = SplashDrawing(onSplashDismiss)
+local sourhallDrawing = SourhallDrawing(onSplashDismiss)
+local gorpleyCloughDrawing = GorpleyCloughDrawing(onSplashDismiss)
 
-function TodmordenGame:setup()
-  -- todo deprecate this
-end
 
 function TodmordenGame:draw()
-  splashDrawing:draw()
+  gorpleyCloughDrawing:draw()
 end

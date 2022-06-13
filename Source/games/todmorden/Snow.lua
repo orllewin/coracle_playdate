@@ -1,19 +1,22 @@
 class("Snow").extends()
 class('Snowflake').extends()
 
+local graphics <const> = playdate.graphics
+local snowflakes = {}
+local ground = {}
+
 local snowSettles = false
 local windspeed = 0.0
-local snowflakes = {}
-
-local ground = {}
 local frame = 0
 
-function Snow:init(settles, snowflakeCount)
-  
+function Snow:init(settles, snowflakeCount, size, maxSpeed)
+  for i, v in ipairs(snowflakes) do snowflakes[i] = nil end
+
   for i = 1, snowflakeCount do
     local snowflake = Snowflake()
     snowflake.location = Vector:create(math.random(0, width * 1.25), math.random(-400, 0))
-    snowflake.speed = math.random(1, 4)
+    snowflake.speed = math.random(1, maxSpeed)
+    snowflake.size = size
     snowflake.direction = math.random(-2, 2)
     table.insert(snowflakes, snowflake)
   end
@@ -30,16 +33,19 @@ end
 function Snow:draw()
   
   frame += 1
-  
-  playdate.graphics.setColor(playdate.graphics.kColorXOR)
+
   for i = 1, #snowflakes do
     local snowflake = snowflakes[i]
-    line(snowflake.location.x + 3 * windspeed, snowflake.location.y - 1, snowflake.location.x, snowflake.location.y)
-    --point(snowflake.location.x, snowflake.location.y)
+    
+    if(snowflake.size == 1)then
+      line(snowflake.location.x + 3 * windspeed, snowflake.location.y - 1, snowflake.location.x, snowflake.location.y)
+    else
+      circle(snowflake.location.x, snowflake.location.y, snowflake.size)
+    end
+
     snowflake.location.y = snowflake.location.y + snowflake.speed
     
-    local wind = playdate.graphics.perlin(snowflake.speed, snowflake.location.y * 0.0055, frame * 0.0055) - 0.5
-    --local wind = 0
+    local wind = graphics.perlin(snowflake.speed, snowflake.location.y * 0.0055, frame * 0.0055) - 0.5
     snowflake.location.x = snowflake.location.x + (wind * snowflake.speed) + snowflake.direction
     if(snowflake.location.y > height + 1) then
       snowflake.location = Vector:create(math.random(0, (width * 1.25)), math.random(-100, 0))
@@ -67,6 +73,7 @@ function Snow:draw()
   end
   
   if(snowSettles)then
+    graphics.setColor(playdate.graphics.kColorWhite)
     for g = 1, #ground do
       local gSize = ground[g]
       if(gSize > 0)then
