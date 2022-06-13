@@ -8,6 +8,7 @@ local prevColor = nil
 local frame = 0
 
 function Waterfall:init(dropCount, speedMax, xStart, xEnd, yStart, yEnd)
+  for i, v in ipairs(droplets) do droplets[i] = nil end
   for i = 1, dropCount do
     local drop = Drop()
     drop.location = Vector:create(math.random(xStart, xEnd), math.random(yStart, yEnd))
