@@ -1,4 +1,3 @@
-import 'CoreLibs/timer'
 import 'coracle/Coracle'
 import 'games/todmorden/splash/SplashDrawing'
 
@@ -15,6 +14,5 @@ function TodmordenGame:setup()
 end
 
 function TodmordenGame:draw()
-  line(0, 0, 100, 100)
   splashDrawing:draw()
 end

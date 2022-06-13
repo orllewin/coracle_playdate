@@ -1,3 +1,4 @@
+import 'CoreLibs/timer'
 import 'coracle/Coracle'
 --import 'drawings/ShadowParallaxDrawing'
 --local shadowParallaxDrawing = ShadowParallaxDrawing()
