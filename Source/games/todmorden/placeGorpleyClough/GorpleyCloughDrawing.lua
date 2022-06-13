@@ -4,16 +4,16 @@ import 'CoreLibs/timer'
 
 import 'coracle/Coracle'
 import 'coracle/Vector'
-import 'games/todmorden/Snow'
-import 'games/todmorden/Waterfall'
+import 'coracle/FlowingWater'
+import 'coracle/Precipitation'
 
 class('GorpleyCloughDrawing').extends(Drawing)
 
 local graphics <const> = playdate.graphics
 
-local waterfallSmall
-local waterfallMain
-local snow
+local waterfallSmall = FlowingWater:create(15, 1, 165, 183, 97, 110)
+local waterfallMain = FlowingWater:create(800, 5, 155, 320, 140, 240)
+local pollen = Precipitation:create(false, 15, 2, 1)
 
 local sound <const> = playdate.sound
 local synthFilterResonance = 0.1
@@ -36,25 +36,21 @@ function GorpleyCloughDrawing:init(_onGorpleyDismiss)
   onGorpleyDismiss = _onGorpleyDismiss
     
   -- Audio
-  
   self.start()
 end
 
 function GorpleyCloughDrawing:start()
-  waterfallSmall = Waterfall(15, 2, 165, 183, 97, 110)
-  waterfallMain = Waterfall(800, 4, 155, 320, 140, 240)
-  snow = Snow(false, 15, 2, 2)
   synth:playNote(330)
 end
 
 function GorpleyCloughDrawing:draw()
   splashImage:draw(0, 0)
   
-  waterfallSmall:draw()
-  waterfallMain:draw()
+  waterfallSmall:draw(graphics.kColorXOR)
+  waterfallMain:draw(graphics.kColorXOR)
   
   graphics.setColor(playdate.graphics.kColorWhite)
-  snow:draw()
+  pollen:draw()
   
   if(aPressed())then
     synth:stop()

@@ -47,7 +47,7 @@ turbineD:add()
 local turbineDLoop = graphics.animation.loop.new(100, turbineTable)
 turbineDLoop.frame = 10
 
-local snow = Snow(false, 2000, 4, 4)
+local snow
 
 local onSplashDismiss = nil
 local splashTimer = nil
@@ -61,7 +61,7 @@ end
 
 function SourhallDrawing:start()
   print("SourhallDrawing:start()")
-  snow = Snow(false, 2000, 1, 4)
+  snow = Snow(false, 2000, 1, 4, true)
   graphics.sprite.setBackgroundDrawingCallback(
       function( x, y, width, height )
           splashImage:draw(0, 0)
@@ -71,14 +71,13 @@ function SourhallDrawing:start()
 end
 
 function SourhallDrawing:draw()
-  graphics.setColor(playdate.graphics.kColorWhite)
   turbineA:setImage(turbineALoop:image())
   turbineB:setImage(turbineBLoop:image())
   turbineC:setImage(turbineCLoop:image())
   turbineD:setImage(turbineDLoop:image())
   
   graphics.sprite.update()
-  graphics.setColor(playdate.graphics.kColorWhite)
+  graphics.setColor(playdate.graphics.kColorXOR)
   snow:draw()
   
   if(aPressed())then

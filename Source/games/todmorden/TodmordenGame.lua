@@ -20,6 +20,7 @@ onGorpleyDismiss = function()
   sourhallDrawing:start()
 end
 
+--start:
 onGorpleyDismiss()
 
 function TodmordenGame:draw()
