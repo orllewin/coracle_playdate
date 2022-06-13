@@ -4,8 +4,8 @@ import 'CoreLibs/animation'
 import 'CoreLibs/timer'
 
 import 'coracle/Coracle'
+import 'coracle/Precipitation'
 import 'coracle/Vector'
-import 'games/todmorden/Snow'
 
 class('TurbineSprite').extends(playdate.graphics.sprite)
 class('SourhallDrawing').extends(Drawing)
@@ -47,7 +47,7 @@ turbineD:add()
 local turbineDLoop = graphics.animation.loop.new(100, turbineTable)
 turbineDLoop.frame = 10
 
-local snow
+local snow = Precipitation:create(false, 2000, 1, 4)
 
 local onSplashDismiss = nil
 local splashTimer = nil
@@ -57,17 +57,12 @@ assert(splashImage)
 
 function SourhallDrawing:init(_onSplashDismiss)
   onSplashDismiss = _onSplashDismiss
-end
-
-function SourhallDrawing:start()
-  print("SourhallDrawing:start()")
-  snow = Snow(false, 2000, 1, 4, true)
+  
   graphics.sprite.setBackgroundDrawingCallback(
       function( x, y, width, height )
           splashImage:draw(0, 0)
       end
   )
-  
 end
 
 function SourhallDrawing:draw()

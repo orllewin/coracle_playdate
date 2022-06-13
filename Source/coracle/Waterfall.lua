@@ -9,26 +9,26 @@ function Drop:create(location, speed, direction)
    return drop
 end
 
-FlowingWater = {}
-FlowingWater.__index = FlowingWater
-function FlowingWater:create(dropCount, speedMax, xStart, xEnd, yStart, yEnd)
-   local flowingWater = {}
-   setmetatable(flowingWater, FlowingWater)
-   flowingWater.xStart = xStart
-   flowingWater.xEnd = xEnd
-   flowingWater.yStart = yStart
-   flowingWater.yEnd = yEnd
-   flowingWater.prevColor = playdate.graphics.kColorXOR
-   flowingWater.iterations = 0
-   flowingWater.droplets = {}
+Waterfall = {}
+Waterfall.__index = Waterfall
+function Waterfall:create(dropCount, speedMax, xStart, xEnd, yStart, yEnd)
+   local waterfall = {}
+   setmetatable(waterfall, Waterfall)
+   waterfall.xStart = xStart
+   waterfall.xEnd = xEnd
+   waterfall.yStart = yStart
+   waterfall.yEnd = yEnd
+   waterfall.prevColor = playdate.graphics.kColorXOR
+   waterfall.iterations = 0
+   waterfall.droplets = {}
    for i = 1, dropCount do
     local drop = Drop:create(Vector:create(math.random(xStart, xEnd), math.random(yStart, yEnd)), math.random(1, speedMax), math.random(-1, 1))
-    table.insert(flowingWater.droplets, drop)
+    table.insert(waterfall.droplets, drop)
    end
-   return flowingWater
+   return waterfall
 end
 
-function FlowingWater:draw(color)
+function Waterfall:draw(color)
   
   self.iterations += 1
   self.prevColor = playdate.graphics.getColor()

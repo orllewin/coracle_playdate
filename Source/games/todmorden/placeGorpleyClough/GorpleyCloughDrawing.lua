@@ -4,15 +4,15 @@ import 'CoreLibs/timer'
 
 import 'coracle/Coracle'
 import 'coracle/Vector'
-import 'coracle/FlowingWater'
+import 'coracle/Waterfall'
 import 'coracle/Precipitation'
 
 class('GorpleyCloughDrawing').extends(Drawing)
 
 local graphics <const> = playdate.graphics
 
-local waterfallSmall = FlowingWater:create(15, 1, 165, 183, 97, 110)
-local waterfallMain = FlowingWater:create(800, 5, 155, 320, 140, 240)
+local waterfallSmall = Waterfall:create(15, 1, 165, 183, 97, 110)
+local waterfallMain = Waterfall:create(800, 5, 155, 320, 140, 240)
 local pollen = Precipitation:create(false, 15, 2, 1)
 
 local sound <const> = playdate.sound
