@@ -15,7 +15,10 @@ local graphics <const> = playdate.graphics
 local waterfallSmall = Waterfall(15, 2, 165, 183, 97, 110)
 local waterfallMain = Waterfall(800, 4, 155, 320, 140, 240)
 local snow = Snow(false, 15, 2, 2)
-snow.color =  graphics.kColorWhite
+
+local sound <const> = playdate.sound
+local synthFilterResonance = 0.1
+local synthFilterFrequency = 400
 
 local onSplashDismiss = nil
 local splashTimer = nil
@@ -31,6 +34,15 @@ function GorpleyCloughDrawing:init(_onSplashDismiss)
           splashImage:draw(0, 0)
       end
   )
+  
+  -- Audio
+  synth = sound.synth.new(playdate.sound.kWaveNoise)
+  filter = sound.twopolefilter.new("lowpass") -- XXX - snd.kFilterLowPass should work
+  filter:setResonance(synthFilterResonance)
+  filter:setFrequency(synthFilterFrequency)
+  sound.addEffect(filter)
+  synth:playNote(330)
+  synth:setVolume(0.04)
 end
 
 function GorpleyCloughDrawing:draw()
