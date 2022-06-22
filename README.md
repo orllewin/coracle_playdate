@@ -1,6 +1,6 @@
 # Note.
 
-This is older code from when Lua was still new to me, you'd be better off looking at the Coracle package in the [Calx game repo](https://github.com/orllewin/playdate_calx) for a more up-to-date and better written version of this project. This repo will be updated with updated examples and code once Calx has shipped.
+This is older code from when Lua was still new to me, you'd be better off looking at the Coracle package in the [Calx game repo](https://github.com/orllewin/playdate_calx) for a more up-to-date and better written version of this project. This repo will be improved with updated examples and code once Calx has shipped.
 
 # Coracle for Playdate
 
